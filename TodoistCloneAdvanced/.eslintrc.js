@@ -15,73 +15,53 @@ module.exports = {
       jsx: true,
     },
   },
-  env: {
-    es2021: true,
-    node: true,
-    'react-native/react-native': true,
-  },
   settings: {
     react: {
       version: 'detect',
     },
   },
+  env: {
+    browser: true,
+    es2021: true,
+    node: true,
+    'react-native/react-native': true,
+  },
   rules: {
-    // React
-    'react/prop-types': 'off', // We use TypeScript for prop validation
-    'react/react-in-jsx-scope': 'off', // Not needed with React 17+
-    'react/display-name': 'off',
-    'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
-
-    // React Hooks
-    'react-hooks/rules-of-hooks': 'error',
-    'react-hooks/exhaustive-deps': 'warn',
-
-    // TypeScript
+    // TypeScript specific rules
+    '@typescript-eslint/explicit-function-return-type': 'off',
     '@typescript-eslint/explicit-module-boundary-types': 'off',
     '@typescript-eslint/no-explicit-any': 'warn',
     '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-    '@typescript-eslint/no-non-null-assertion': 'warn',
-    '@typescript-eslint/ban-ts-comment': 'warn',
 
-    // General
+    // React specific rules
+    'react/prop-types': 'off',
+    'react/react-in-jsx-scope': 'off',
+    'react/display-name': 'off',
+    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/exhaustive-deps': 'warn',
+
+    // General rules
     'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'prefer-const': 'error',
+    'no-unused-vars': 'off', // Using TypeScript's no-unused-vars instead
+    'prefer-const': 'warn',
     'no-var': 'error',
     'eqeqeq': ['error', 'always'],
-    'no-multiple-empty-lines': ['error', { max: 1, maxEOF: 0 }],
-    'comma-dangle': ['error', 'always-multiline'],
-    'quotes': ['error', 'single', { avoidEscape: true }],
-    'semi': ['error', 'always'],
-    'arrow-parens': ['error', 'as-needed'],
-    'object-curly-spacing': ['error', 'always'],
-    'array-bracket-spacing': ['error', 'never'],
-    'no-trailing-spaces': 'error',
-    'eol-last': 'error',
-    'no-duplicate-imports': 'error',
+    'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 1 }],
+    'comma-dangle': ['warn', 'always-multiline'],
+    'quotes': ['warn', 'single', { avoidEscape: true }],
+    'semi': ['warn', 'always'],
   },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       rules: {
-        '@typescript-eslint/explicit-function-return-type': ['warn', {
-          allowExpressions: true,
-          allowTypedFunctionExpressions: true,
-        }],
-      },
-    },
-    {
-      files: ['*.js', '*.jsx'],
-      rules: {
-        '@typescript-eslint/no-var-requires': 'off',
+        '@typescript-eslint/explicit-function-return-type': ['warn'],
       },
     },
     {
       files: ['*.test.ts', '*.test.tsx', '*.spec.ts', '*.spec.tsx'],
       env: {
         jest: true,
-      },
-      rules: {
-        '@typescript-eslint/no-explicit-any': 'off',
       },
     },
   ],

@@ -15,53 +15,57 @@ module.exports = {
       jsx: true,
     },
   },
+  env: {
+    es6: true,
+    node: true,
+    jest: true,
+    'react-native/react-native': true,
+  },
   settings: {
     react: {
       version: 'detect',
     },
   },
-  env: {
-    browser: true,
-    es2021: true,
-    node: true,
-    'react-native/react-native': true,
-  },
   rules: {
-    // TypeScript specific rules
-    '@typescript-eslint/explicit-function-return-type': 'off',
-    '@typescript-eslint/explicit-module-boundary-types': 'off',
-    '@typescript-eslint/no-explicit-any': 'warn',
-    '@typescript-eslint/no-unused-vars': ['warn', { argsIgnorePattern: '^_' }],
-
-    // React specific rules
+    // React
     'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
     'react/display-name': 'off',
+    'react/jsx-curly-brace-presence': ['error', { props: 'never', children: 'never' }],
+
+    // React Hooks
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'warn',
 
-    // General rules
+    // TypeScript
+    '@typescript-eslint/explicit-module-boundary-types': 'off',
+    '@typescript-eslint/no-explicit-any': 'warn',
+    '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+    '@typescript-eslint/no-non-null-assertion': 'warn',
+    '@typescript-eslint/ban-ts-comment': 'warn',
+
+    // General
     'no-console': ['warn', { allow: ['warn', 'error'] }],
-    'no-unused-vars': 'off', // Using TypeScript's no-unused-vars instead
-    'prefer-const': 'warn',
-    'no-var': 'error',
-    'eqeqeq': ['error', 'always'],
-    'no-multiple-empty-lines': ['warn', { max: 1, maxEOF: 1 }],
-    'comma-dangle': ['warn', 'always-multiline'],
-    'quotes': ['warn', 'single', { avoidEscape: true }],
-    'semi': ['warn', 'always'],
+    'no-duplicate-imports': 'error',
+    'no-unused-vars': 'off', // Use TypeScript's checker instead
+    'prefer-const': 'error',
+    'spaced-comment': ['error', 'always'],
+    'object-shorthand': ['error', 'always'],
   },
   overrides: [
     {
       files: ['*.ts', '*.tsx'],
       rules: {
-        '@typescript-eslint/explicit-function-return-type': ['warn'],
+        '@typescript-eslint/explicit-module-boundary-types': ['error'],
       },
     },
     {
       files: ['*.test.ts', '*.test.tsx', '*.spec.ts', '*.spec.tsx'],
       env: {
         jest: true,
+      },
+      rules: {
+        '@typescript-eslint/no-explicit-any': 'off',
       },
     },
   ],
